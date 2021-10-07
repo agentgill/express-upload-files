@@ -3,6 +3,7 @@ const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const XLSX = require('xlsx');
 const _ = require('lodash');
 
 const app = express();
@@ -34,7 +35,7 @@ app.post('/upload', async (req, res) => {
 
             //Use the mv() method to place the file in upload directory (i.e. "uploads")
             //avatar.mv('./uploads/' + avatar.name);
-
+            readFile(upload);
             //send response
             res.send({
                 status: true,
@@ -50,6 +51,13 @@ app.post('/upload', async (req, res) => {
         res.status(500).send(err);
     }
 });
+
+function readFile(upload) {
+    var workbook = XLSX.read(upload.data);
+    console.log(workbook);
+    var json = XLSX.utils.sheet_to_json(workbook.Sheets['Sheet1'], null);
+    console.log(JSON.stringify(json));
+}
 
 //add other middleware
 app.use(cors());
