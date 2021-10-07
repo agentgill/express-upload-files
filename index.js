@@ -29,7 +29,7 @@ app.post('/upload', async (req, res) => {
             });
         } else {
             //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
-            let avatar = req.files.upload;
+            let upload = req.files.upload;
 
             //Use the mv() method to place the file in upload directory (i.e. "uploads")
             //avatar.mv('./uploads/' + avatar.name);
@@ -39,9 +39,9 @@ app.post('/upload', async (req, res) => {
                 status: true,
                 message: 'File is uploaded',
                 data: {
-                    name: avatar.name,
-                    mimetype: avatar.mimetype,
-                    size: avatar.size,
+                    name: upload.name,
+                    mimetype: upload.mimetype,
+                    size: upload.size,
                 },
             });
         }
