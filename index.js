@@ -35,7 +35,7 @@ app.post('/upload', async (req, res) => {
 
             //Use the mv() method to place the file in upload directory (i.e. "uploads")
             //avatar.mv('./uploads/' + avatar.name);
-            readFile(upload);
+            let excel = readFile(upload);
             //send response
             res.send({
                 status: true,
@@ -44,6 +44,7 @@ app.post('/upload', async (req, res) => {
                     name: upload.name,
                     mimetype: upload.mimetype,
                     size: upload.size,
+                    excel: excel,
                 },
             });
         }
@@ -57,6 +58,7 @@ function readFile(upload) {
     console.log(workbook);
     var json = XLSX.utils.sheet_to_json(workbook.Sheets['Sheet1'], null);
     console.log(JSON.stringify(json));
+    return json;
 }
 
 //add other middleware
