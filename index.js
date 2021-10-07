@@ -15,6 +15,7 @@ app.use(
 );
 
 app.get('/hello', (req, res) => {
+    console.log('Hello Heroku!');
     res.status(200).json({
         message: 'Hello from root',
     });
