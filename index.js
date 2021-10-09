@@ -1,6 +1,9 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
+const corsOptions = {
+    origin: 'https://*.force.com',
+};
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const XLSX = require('xlsx');
@@ -15,7 +18,7 @@ app.use(
     })
 );
 
-app.get('/hello', cors(), (req, res) => {
+app.get('/hello', cors(corsOptions), (req, res) => {
     console.log('Hello Heroku!');
     res.status(200).json({
         message: 'Hello from root',
