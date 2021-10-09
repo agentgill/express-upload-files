@@ -6,13 +6,7 @@ const whitelist = [
     'https://me-lwc-recipes-dev-ed.lightning.force.com',
 ];
 const corsOptions = {
-    origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: 'https://me-lwc-recipes-dev-ed.lightning.force.com',
 };
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
