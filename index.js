@@ -20,7 +20,6 @@ const corsOptions = {
 
 app.use(
     cors(),
-    allowCrossDomain,
     fileUpload({
         createParentPath: true,
     })
