@@ -1,13 +1,7 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
-const whitelist = [
-    'https://*.force.com',
-    'https://me-lwc-recipes-dev-ed.lightning.force.com',
-];
-const corsOptions = {
-    origin: 'https://me-lwc-recipes-dev-ed.lightning.force.com',
-};
+
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const XLSX = require('xlsx');
@@ -16,13 +10,23 @@ const _ = require('lodash');
 const app = express();
 
 // enable files upload
+const whitelist = [
+    'https://*.force.com',
+    'https://me-lwc-recipes-dev-ed.lightning.force.com',
+];
+const corsOptions = {
+    origin: 'https://me-lwc-recipes-dev-ed.lightning.force.com',
+};
+
 app.use(
+    cors(),
+    allowCrossDomain,
     fileUpload({
         createParentPath: true,
     })
 );
 
-app.get('/hello', cors(corsOptions), (req, res) => {
+app.get('/hello', cors(), (req, res) => {
     console.log('Hello Heroku!');
     res.status(200).json({
         message: 'Hello from root',
@@ -69,7 +73,7 @@ function readFile(upload) {
 }
 
 //add other middleware
-app.use(cors());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
