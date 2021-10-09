@@ -1,8 +1,18 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
+const whitelist = [
+    'https://*.force.com',
+    'https://me-lwc-recipes-dev-ed.lightning.force.com',
+];
 const corsOptions = {
-    origin: 'https://*.force.com', 'https://me-lwc-recipes-dev-ed.lightning.force.com'
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
 };
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
