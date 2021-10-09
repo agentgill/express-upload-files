@@ -2,7 +2,7 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const corsOptions = {
-    origin: 'https://*.force.com',
+    origin: 'https://*.force.com', 'https://me-lwc-recipes-dev-ed.lightning.force.com'
 };
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
