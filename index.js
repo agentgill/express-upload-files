@@ -1,7 +1,6 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
-
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const XLSX = require('xlsx');
@@ -9,14 +8,14 @@ const _ = require('lodash');
 
 const app = express();
 
-// enable files upload
-const whitelist = [
-    'https://*.force.com',
-    'https://me-lwc-recipes-dev-ed.lightning.force.com',
-];
-const corsOptions = {
-    origin: 'https://me-lwc-recipes-dev-ed.lightning.force.com',
-};
+// // enable files upload
+// const whitelist = [
+//     'https://*.force.com',
+//     'https://me-lwc-recipes-dev-ed.lightning.force.com',
+// ];
+// const corsOptions = {
+//     origin: 'https://me-lwc-recipes-dev-ed.lightning.force.com',
+// };
 
 app.use(
     cors(),
@@ -25,7 +24,7 @@ app.use(
     })
 );
 
-app.get('/hello', cors(), (req, res) => {
+app.get('/hello', (req, res) => {
     console.log('Hello Heroku!');
     res.status(200).json({
         message: 'Hello from root',
