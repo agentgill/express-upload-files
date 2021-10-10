@@ -1,21 +1,10 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
 const XLSX = require('xlsx');
 const _ = require('lodash');
 
 const app = express();
-
-// // enable files upload
-// const whitelist = [
-//     'https://*.force.com',
-//     'https://me-lwc-recipes-dev-ed.lightning.force.com',
-// ];
-// const corsOptions = {
-//     origin: 'https://me-lwc-recipes-dev-ed.lightning.force.com',
-// };
 
 app.use(
     cors(),
@@ -24,7 +13,7 @@ app.use(
     })
 );
 
-app.get('/hello', (req, res) => {
+app.get('/hello', cors(), (req, res) => {
     console.log('Hello Heroku!');
     res.status(200).json({
         message: 'Hello from root',
@@ -39,11 +28,7 @@ app.post('/upload', async (req, res) => {
                 message: 'No file uploaded',
             });
         } else {
-            //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
             let upload = req.files.upload;
-
-            //Use the mv() method to place the file in upload directory (i.e. "uploads")
-            //avatar.mv('./uploads/' + avatar.name);
             let excel = readFile(upload);
             //send response
             res.send({
@@ -70,13 +55,8 @@ function readFile(upload) {
     return json;
 }
 
-//add other middleware
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan('dev'));
-
 //start app
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || 'http://localhost';
 
-app.listen(port, () => console.log(`App is listening on port ${port}.`));
+app.listen(PORT, () => console.log(`App is listening on port ${HOST}:${PORT}`));
